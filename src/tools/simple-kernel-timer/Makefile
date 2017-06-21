@@ -1,4 +1,7 @@
 CXX=g++
+#CXX=icc
+#CXX=CC
+
 CXXFLAGS=-O3 -std=c++11 -g
 SHARED_CXXFLAGS=-shared -fPIC
 

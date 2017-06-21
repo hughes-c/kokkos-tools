@@ -83,9 +83,9 @@ extern "C" void kokkosp_finalize_library() {
 	
 	char* hostname = (char*) malloc(sizeof(char) * 256);
 	gethostname(hostname, 256);
-	
+
 	char* fileOutput = (char*) malloc(sizeof(char) * 256);
-	sprintf(fileOutput, "%s-%d.dat", hostname, (int) getpid());
+	sprintf(fileOutput, "%s-%d:%d.dat", hostname, (int) getppid(), (int) getpid());
 	
 	free(hostname);
 	FILE* output_data = fopen(fileOutput, "wb");
@@ -101,7 +101,7 @@ extern "C" void kokkosp_finalize_library() {
 
 	fclose(output_data);
 
-        printf("KokkosP: Kernel timing written to %s/%s \n", get_current_dir_name(), fileOutput);
+	printf("KokkosP: Kernel timing written to %s/%s \n", get_current_dir_name(), fileOutput);
 
 	/*printf("\n");
 	printf("======================================================================\n");
