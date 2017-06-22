@@ -19,15 +19,15 @@ bool compareKernelPerformanceInfo(KernelPerformanceInfo* left, KernelPerformance
 
 int find_index(std::vector<KernelPerformanceInfo*>& kernels,
 	const char* kernelName) {
-	
+
 	for(int i = 0; i < kernels.size(); i++) {
 		KernelPerformanceInfo* nextKernel = kernels[i];
-	
+
 		if(strcmp(nextKernel->getName(), kernelName) == 0) {
 			return i;
-		}	
+		}
 	}
-	
+
 	return -1;
 }
 
@@ -76,10 +76,10 @@ int main(int argc, char* argv[]) {
 
 	for(int i = commandline_args; i < argc; i++) {
 		FILE* the_file = fopen(argv[i], "rb");
-		
+
 		double fileExecuteTime = 0;
 		fread(&fileExecuteTime, sizeof(fileExecuteTime), 1, the_file);
-		
+
 		totalExecuteTime += fileExecuteTime;
 
 		while(! feof(the_file)) {
@@ -112,12 +112,13 @@ int main(int argc, char* argv[]) {
 
 	for(int i = 0; i < kernelInfo.size(); i++) {
 		const double callCountDouble = (double) kernelInfo[i]->getCallCount();
-		
-		std::string mangledName = "_Z" + std::string(kernelInfo[i]->getName());	
-		//std::cout << "Name:  " << mangledName << "\n";
+
+		std::string mangledName = "_Z" + std::string(kernelInfo[i]->getName());
+		std::cout << "Name:  " << mangledName << "\n";
 		std::string mooCows = "c++filt " + mangledName;
 		mangledName = runCmd(mooCows.c_str());
-		//std::cout << "Name-D:  " << mangledName << "\n";
+                remove_if(mangledName.begin(), mangledName.end(), isspace);
+		std::cout << "Name-D:  " << mangledName << "\n";
 
 
                 if(fixed_width)
