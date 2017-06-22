@@ -114,11 +114,12 @@ int main(int argc, char* argv[]) {
 		const double callCountDouble = (double) kernelInfo[i]->getCallCount();
 
 		std::string mangledName = "_Z" + std::string(kernelInfo[i]->getName());
-		std::cout << "Name:  " << mangledName << "\n";
+// 		std::cout << "Name:  " << mangledName << "\n";
 		std::string mooCows = "c++filt " + mangledName;
 		mangledName = runCmd(mooCows.c_str());
                 remove_if(mangledName.begin(), mangledName.end(), isspace);
-		std::cout << "Name-D:  " << mangledName << "\n";
+                mangledName.erase(std::remove(mangledName.begin(), mangledName.end(), '\n'), mangledName.end());
+// 		std::cout << "Name-D:  " << mangledName << "\n";
 
 
                 if(fixed_width)
