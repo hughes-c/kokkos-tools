@@ -117,9 +117,11 @@ int main(int argc, char* argv[]) {
 // 		std::cout << "Name:  " << mangledName << "\n";
 		std::string mooCows = "c++filt " + mangledName;
 		mangledName = runCmd(mooCows.c_str());
-                remove_if(mangledName.begin(), mangledName.end(), isspace);
                 mangledName.erase(std::remove(mangledName.begin(), mangledName.end(), '\n'), mangledName.end());
-// 		std::cout << "Name-D:  " << mangledName << "\n";
+//                 std::cout << "Name-D:  " << mangledName << "\n";
+                mangledName.erase(remove_if(mangledName.begin(), mangledName.end(), isspace), mangledName.end());
+//                 std::cout << "Name-S:  " << mangledName << "\n\n";
+
 
 
                 if(fixed_width)
